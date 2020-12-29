@@ -1,2 +1,2 @@
-Name: Albert Sutiono\
+Name: Albert Sutiono
 Matriculation Number: A0219773U
