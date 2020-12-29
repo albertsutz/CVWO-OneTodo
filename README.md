@@ -2,7 +2,7 @@
 
   
 
-This is a Computing for Voluntary Welfare Organisations Assignment to make a to-do list web application.
+This is a Computing for Voluntary Welfare Organisations Assignment to make a to-do list web application. It is made with Ruby on Rails with React.
 
 Name: Albert Sutiono
 Matriculation Number: A0219773U
