@@ -1,23 +1,24 @@
 module Api
     module V1
         class CategoriesController < ApplicationController
+            skip_before_action :verify_authenticity_token
             def index
                 categories = Category.all
 
-                render json: CategorySerializer(categories, options).serialized_json
+                render json: CategorySerializer.new(categories, options).serialized_json
             end
 
             def show
                 category = Category.find_by(id: params[:id])
 
-                render json: CategorySerializer(category, options).serialized_json
+                render json: CategorySerializer.new(category, options).serialized_json
             end
 
             def create
                 category = Category.new(category_params)
 
                 if category.save
-                    render json: CategorySerializer(category).serialized_json
+                    render json: CategorySerializer.new(category).serialized_json
                 else
                     render json: {error: category.errors.messages}, status: 422
                 end
@@ -27,9 +28,9 @@ module Api
                 category = Category.find_by(id: params[:id])
 
                 if category.update(category_params)
-                    render json: CategorySerializer(category, options).serialized_json
+                    render json: CategorySerializer.new(category, options).serialized_json
                 else
-                    render json: {error: cateogry.errors.messages}, status: 422
+                    render json: {error: category.errors.messages}, status: 422
                 end
             end
 
@@ -37,23 +38,20 @@ module Api
                 category = Category.find_by(id: params[:id])
 
                 if category.destroy
-                    head: no_content
+                    render head: no_content
                 else
-                    render json: {error: cateogry.errors.messages}, status: 422
+                    render json: {error: category.errors.messages}, status: 422
                 end
             end
-
-
-
-
             private
 
             def category_params
-                params.require(:cateogry).permit(:name)
+                params.require(:category).permit(:name)
             end
 
             def options
                 @options ||= { include: %i[tasks] }
+            end
         end
     end
 end
